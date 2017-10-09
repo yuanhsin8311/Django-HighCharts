@@ -1,0 +1,88 @@
+<pre>/*charts.html*/
+<html>
+<head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+
+
+<!--javascript for charts
+  -->
+<script>
+$(function () {
+$('#chart_container').highcharts({
+
+chart: {
+type: 'boxplot'
+},
+
+title: {
+text: 'Highcharts Box Plot Example'
+},
+
+legend: {
+enabled: false
+},
+        
+xAxis: {
+categories: ['{{result_entry.state_name_year}}'],
+title: {
+text: 'State'
+}
+},
+
+yAxis: {
+title: {
+text: 'Pollution'
+},
+plotLines: [{
+value: {{result_entry.mean_value}},
+color: 'red',
+width: 1,
+label: {
+text: 'Theoretical mean: {{result_entry.mean_value}}',
+align: 'center',
+style: {
+color: 'gray'
+}
+}
+}]  
+},
+
+
+series: [{
+                name: 'Pollution',
+                data: [
+                    [{{result_entry.pollution_list_text}}]
+                ],
+                tooltip: {
+                    headerFormat: '<em>State {point.key}</em><br/>'
+                }
+            }, {
+                marker: {
+                    fillColor: 'white',
+                    lineWidth: 1,
+                    lineColor: Highcharts.getOptions().colors[0]
+                },
+                tooltip: {
+                    pointFormat: 'Pollution: {point.y}'
+                }
+            }]
+
+
+});
+});
+</script>
+
+
+</head>
+<body>
+  <form name="form" method="post" action="/polls/test2/">State: <input type="text" name="state" /> <br>Year: <input type="text" name="year" /> <br><input type="submit" name="button" value="request" />&nbsp;&nbsp;</form>
+  
+  <div id="chart_container" style="height: 400px; margin: auto; min-width: 310px; max-width: 600px"></div>
+</body>
+</html>
+
+

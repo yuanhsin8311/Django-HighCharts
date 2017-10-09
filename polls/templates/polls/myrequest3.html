@@ -1,0 +1,12 @@
+{% if result_list2 %}
+    <ul>
+    {% for each_entry in result_list2 %}
+        {{ each_entry.city_name }}<br>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+
+
+    
