@@ -30,6 +30,11 @@ $ pip install bokeh
 $ pip install psycopg2
 ```
 
+* Install highcharts python package 
+```sh
+$ pip install django-highcharts
+```
+
 * Write all installed packages into the requirements.txt
 ```sh
 $ pip freeze > requirements.txt
@@ -37,9 +42,9 @@ $ pip freeze > requirements.txt
 
 ## [Start with Django Project] 
 
-* Create Django project- Pollution 
+* Create Django project- mysite 
 ```sh
-$ django-admin startproject pollution
+$ django-admin startproject mysite
 ```
 
 ## [Configure PostgreSQL Database and Django backend]
@@ -51,7 +56,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'OPTIONS': {'options': '-c search_path=public'}
-        'NAME': 'pollution',
+        'NAME': 'test1',
         'USER': 'postgres',
         'PASSWORD': 'Abcd0101'
         'HOST': 'localhost',
@@ -63,19 +68,20 @@ DATABASES = {
 
 * Create Django application- statistics
 ```sh
-$ django-admin startapp statistics
+$ django-admin startapp polls
 ```
 
 * Register application by updating INSTALLED_APPS tuple in the settings.py file (add application name)
 ```sh
 INSTALLED_APPS = [
+    'polls.apps.PollsConfig',
+    'highcharts',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'statistics',
+    'django.contrib.staticfiles',    
 ]
 ```
 
@@ -100,13 +106,11 @@ Superuser created successfully.
 ```
 
 
-
-
 ## [Execute Django Server]
 
 * Run a command in a new container
 ```sh
-$ python manage.py runserver
+$ python manage.py runserver 8003
 ```
 
 * Before launching your server, to access your Admin Interface, you need to initiate the database −
@@ -114,7 +118,10 @@ $ python manage.py runserver
 $ python manage.py migrate
 ```
 
-
+* Connect to PostgreSQL db and create table test1 
+```sh
+$ python manage.py sqlmigrate 0001_initial
+```
 
 
 
